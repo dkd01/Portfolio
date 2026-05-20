@@ -1,17 +1,12 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
-  BriefcaseBusiness,
   Code2,
   Download,
   ExternalLink,
   GitBranch,
-  GraduationCap,
-  Mail,
-  Phone,
-  Trophy,
 } from "lucide-react";
 
-type SectionId = "experience" | "education" | "achievements" | "links";
+type SectionId = "experience" | "education";
 type ExperienceId = "olyv" | "cred" | "navi" | "arista" | "acciojob";
 
 type Experience = {
@@ -26,8 +21,14 @@ type Experience = {
   location: string;
   accent: string;
   bullets: ReactNode[];
+  details?: ExperienceDetail[];
   metrics: string[];
   tech: string[];
+};
+
+type ExperienceDetail = {
+  title: string;
+  items: ReactNode[];
 };
 
 type SkillGroup = {
@@ -38,8 +39,6 @@ type SkillGroup = {
 const sections: Array<{ id: SectionId; label: string }> = [
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
-  { id: "achievements", label: "Achievements" },
-  { id: "links", label: "Links" },
 ];
 
 const skillGroups: SkillGroup[] = [
@@ -127,6 +126,41 @@ const experiences: Experience[] = [
       "Bash",
     ],
     metrics: ["10-20K onboardings/day", "PPI ownership", "Compliance"],
+    details: [
+      {
+        title: "wallet_core",
+        items: [
+          <>Refactored wallet microservices with Java/Go best practices, design patterns, and TDD.</>,
+          <>Closed tech debt and optimizations to improve code quality and service reliability.</>,
+          <>Default on-call for wallet services; unblocked Ops/Growth and drove releases with ownership.</>,
+        ],
+      },
+      {
+        title: "big_rocks",
+        items: [
+          <>Led Digilocker KYC journey revamp.</>,
+          <>Designed Wallet Streaks for retention and wallet usage incentives.</>,
+          <>Integrated UPI on PPI, maintenance mode, and PPI Voice Bot support APIs.</>,
+        ],
+      },
+      {
+        title: "automation_ops",
+        items: [
+          <>Built PAC letter delivery automation with Delhivery APIs for <strong>10-20K daily onboardings</strong>.</>,
+          <>Developed Slack QA bots, Wallet Utils Portal, and Maker-Checker config workflows.</>,
+          <>Built/maintained PPI MCP server, enhanced PPI Agent, and authored runbooks.</>,
+        ],
+      },
+      {
+        title: "compliance_support",
+        items: [
+          <>Built transaction controls, transaction history access, and account validation flows.</>,
+          <>Added experiment mode for controlled feature rollout.</>,
+          <>Passed AML/FRM data downstream for wallet fraud checks.</>,
+          <>Sole owner for PPI wallet support portal and 360-degree execution for <strong>3 months</strong>.</>,
+        ],
+      },
+    ],
     bullets: [
       <>Refactored wallet microservices across Java and Go with TDD and service reliability improvements.</>,
       <>Led Digilocker KYC revamp, Wallet Streaks, UPI on PPI, maintenance mode, and PPI voice-bot APIs.</>,
@@ -164,6 +198,38 @@ const experiences: Experience[] = [
       "Prometheus",
     ],
     metrics: ["20% EMI recovery", "22% pipeline impact", "96% latency cut"],
+    details: [
+      {
+        title: "collections",
+        items: [
+          <>Maintained and optimized Tele-Communication Portal for agent communication and loan-data sync.</>,
+          <>Improved EMI recovery efficiency by <strong>20%</strong>.</>,
+          <>Built WhatsApp Portal for customer media and text communication through in-house tooling.</>,
+        ],
+      },
+      {
+        title: "data_pipeline",
+        items: [
+          <>Owned CIBIL credit data ingestion pipeline end to end.</>,
+          <>Used Airflow, Scala, SQL, and Kafka for credit scores, overdue amounts, and phone-number aggregates.</>,
+          <>Improved model data availability and operational efficiency by <strong>22%</strong>.</>,
+        ],
+      },
+      {
+        title: "reliability",
+        items: [
+          <>Designed Error Handling and Analysis Framework for real-time error visibility.</>,
+          <>Improved issue resolution by <strong>31%</strong>.</>,
+        ],
+      },
+      {
+        title: "performance",
+        items: [
+          <>Refactored home-page code and Elasticsearch aggregations for high-volume datasets.</>,
+          <>Reduced latency by <strong>96%</strong>.</>,
+        ],
+      },
+    ],
     bullets: [
       <>Optimized Tele-Communication Portal and EMI recovery workflows by <strong>20%</strong>.</>,
       <>Built WhatsApp Portal for customer media and text communication.</>,
@@ -185,6 +251,22 @@ const experiences: Experience[] = [
     accent: "#6f617a",
     tech: ["Python", "C++", "Bash", "Networks", "Computer Networks", "OOP", "Testing"],
     metrics: ["EOS trunk", "CLI design", "Production tests"],
+    details: [
+      {
+        title: "eos_feature",
+        items: [
+          <>Delivered Named BitsMap feature on EOS-trunk end to end.</>,
+          <>Worked across CLI command design, functional design, implementation, and validation.</>,
+        ],
+      },
+      {
+        title: "quality",
+        items: [
+          <>Wrote unit tests and production tests for switch behavior.</>,
+          <>Built understanding of network systems, QoS flows, and release-grade testing.</>,
+        ],
+      },
+    ],
     bullets: [
       <>Delivered Named BitsMap feature on EOS-trunk end to end.</>,
       <>Designed CLI commands, functional designs, unit tests, and production tests.</>,
@@ -230,38 +312,48 @@ const chronologicalExperiences = [...experiences].sort(
 const education = [
   {
     title: "Indian Institute of Information Technology Allahabad",
-    subtitle: "B.Tech, Information Technology",
+    subtitle: "B.Tech | Information Technology",
+    location: "Allahabad, U.P.",
     date: "2019 - 2023",
-    details: ["CGPA 8.01", "JEE Mains Rank 5574", "JEE Mains 99.53%"],
+    start: "2019",
+    end: "2023",
+    iconUrl: "https://www.google.com/s2/favicons?domain=iiita.ac.in&sz=64",
+    mark: "IIIT",
+    details: ["8.01 CGPA"],
+  },
+  {
+    title: "FIITJEE",
+    subtitle: "Drop year | JEE + BITSAT prep",
+    location: "Bhopal, M.P.",
+    date: "2019",
+    start: "2019",
+    end: "2019",
+    iconUrl: "https://www.google.com/s2/favicons?domain=fiitjee.com&sz=64",
+    mark: "F",
+    details: ["JEE Rank 5574", "BITSAT 345/420"],
   },
   {
     title: "Sardar Patel Public School, Bhopal",
-    subtitle: "12th",
-    date: "2018 - 2019",
-    details: ["Grade 89.8%", "BITSAT 345/450"],
+    subtitle: "12th | PCM",
+    location: "Bhopal, M.P.",
+    date: "2017 - 2018",
+    start: "2017",
+    end: "2018",
+    iconUrl: "https://www.google.com/s2/favicons?domain=sardarpatel.edu.in&sz=64",
+    mark: "12th",
+    details: ["89.8%"],
   },
   {
     title: "St. Joseph's Co-Ed School",
-    subtitle: "10th",
-    date: "2016 - 2017",
-    details: ["Grade 10 CGPA"],
+    subtitle: "10th | All subjects",
+    location: "Bhopal, M.P.",
+    date: "2016",
+    start: "2016",
+    end: "2016",
+    iconUrl: "https://www.sjcsbhopal.com/images/logo-header.png",
+    mark: "10th",
+    details: ["10 CGPA", "NTSE scholar"],
   },
-];
-
-const achievements = [
-  "Sole owner for PPI wallet for 3 straight months.",
-  "Solved 1000+ coding questions across LeetCode, InterviewBit, Codeforces, and other platforms.",
-  "Mentored 300+ students for 2 years at AccioJob.",
-  "JEE Mains rank 5574, 99.53 percentile, and BITSAT 345/450.",
-];
-
-const links = [
-  { label: "Email", href: "mailto:aryandhakad1@gmail.com", icon: Mail },
-  { label: "Phone", href: "tel:+919826098115", icon: Phone },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/aryandhakad/", icon: ExternalLink },
-  { label: "Resume", href: "/resume/Aryan_Dhakd_Resume_2026_AD1.pdf", icon: Download, download: true },
-  { label: "GitHub", href: "https://github.com/aryanDhakad", icon: GitBranch },
-  { label: "LeetCode", href: "https://leetcode.com/darkkoder1", icon: Code2 },
 ];
 
 function App() {
@@ -304,8 +396,6 @@ function App() {
               <ExperienceStage activeExperience={activeExperience} />
             )}
             {activeSection === "education" && <EducationStage />}
-            {activeSection === "achievements" && <AchievementStage />}
-            {activeSection === "links" && <LinksStage />}
           </section>
         </article>
 
@@ -326,7 +416,6 @@ function App() {
             <ContextPanel
               activeExperience={activeExperience}
               activeSection={activeSection}
-              setActiveSection={setActiveSection}
             />
           </div>
         </aside>
@@ -428,11 +517,26 @@ function ExperienceStage({
             <span>{activeExperience.date}</span>
             <span>{activeExperience.location}</span>
           </div>
-          <ul>
-            {activeExperience.bullets.map((bullet, index) => (
-              <li key={index}>{bullet}</li>
-            ))}
-          </ul>
+          {activeExperience.details ? (
+            <div className="job-tree-grid">
+              {activeExperience.details.map((group) => (
+                <section className="job-tree-group" key={group.title}>
+                  <h3>{group.title}</h3>
+                  <ul>
+                    {group.items.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          ) : (
+            <ul>
+              {activeExperience.bullets.map((bullet, index) => (
+                <li key={index}>{bullet}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
@@ -484,77 +588,43 @@ function CompanyBreadcrumb({
 function EducationStage() {
   return (
     <div className="education-stage">
-      <div className="stage-topline">
-        <div>
-          <span className="eyebrow">Preparation + Education</span>
-          <h2>Education Timeline</h2>
-        </div>
-        <GraduationCap size={32} strokeWidth={1.4} />
-      </div>
       <div className="education-list">
         {education.map((item) => (
           <article className="education-row" key={item.title}>
             <div className="school-mark" aria-hidden="true">
-              {item.title.includes("Allahabad") ? "IIIT" : item.subtitle}
+              <img
+                alt=""
+                src={item.iconUrl}
+                onError={(event) => {
+                  event.currentTarget.remove();
+                }}
+              />
+              <span>{item.mark}</span>
             </div>
-            <div>
+            <div className="education-copy">
               <h3>{item.title}</h3>
               <p>{item.subtitle}</p>
-              <span>{item.date}</span>
-              <div className="detail-row">
+              <div className="detail-row education-achievements">
                 {item.details.map((detail) => (
                   <strong key={detail}>{detail}</strong>
                 ))}
               </div>
             </div>
+            <div
+              className={item.start === item.end ? "education-date-rail single" : "education-date-rail"}
+              aria-label={item.start === item.end ? item.start : `${item.start} to ${item.end}`}
+            >
+              <span>{item.start}</span>
+              {item.start !== item.end ? (
+                <>
+                  <i aria-hidden="true" />
+                  <span>{item.end}</span>
+                </>
+              ) : null}
+              <small>{item.location}</small>
+            </div>
           </article>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function AchievementStage() {
-  return (
-    <div className="achievement-stage">
-      <div className="stage-topline">
-        <div>
-          <span className="eyebrow">Highlights</span>
-          <h2>Achievements</h2>
-        </div>
-        <Trophy size={32} strokeWidth={1.4} />
-      </div>
-      <div className="achievement-grid">
-        {achievements.map((achievement) => (
-          <article className="achievement-card" key={achievement}>
-            {achievement}
-          </article>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function LinksStage() {
-  return (
-    <div className="links-stage">
-      <div className="stage-topline">
-        <div>
-          <span className="eyebrow">Contact</span>
-          <h2>Links</h2>
-        </div>
-        <BriefcaseBusiness size={32} strokeWidth={1.4} />
-      </div>
-      <div className="link-grid">
-        {links.map((link) => {
-          const Icon = link.icon;
-          return (
-            <a href={link.href} key={link.label} rel="noreferrer" target={link.href.startsWith("http") ? "_blank" : undefined}>
-              <Icon size={18} strokeWidth={1.8} />
-              {link.label}
-            </a>
-          );
-        })}
       </div>
     </div>
   );
@@ -563,11 +633,9 @@ function LinksStage() {
 function ContextPanel({
   activeExperience,
   activeSection,
-  setActiveSection,
 }: {
   activeExperience: Experience;
   activeSection: SectionId;
-  setActiveSection: (section: SectionId) => void;
 }) {
   if (activeSection === "experience") {
     return (
@@ -597,53 +665,9 @@ function ContextPanel({
   if (activeSection === "education") {
     return (
       <div className="context-panel">
-        <div className="context-head">
-          <span className="eyebrow">Education</span>
-          <strong>Prep Stats</strong>
-        </div>
-        <InfoStat value="5574" label="JEE Mains rank" />
-        <InfoStat value="8.01" label="IIIT Allahabad CGPA" />
-        <InfoStat value="345/450" label="BITSAT" />
       </div>
     );
   }
-
-  if (activeSection === "achievements") {
-    return (
-      <div className="context-panel">
-        <div className="context-head">
-          <span className="eyebrow">Highlights</span>
-          <strong>Quick Read</strong>
-        </div>
-        <InfoStat value="1000+" label="coding questions" />
-        <InfoStat value="300+" label="students mentored" />
-        <InfoStat value="3 months" label="PPI wallet ownership" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="context-panel">
-      <div className="context-head">
-        <span className="eyebrow">Links</span>
-        <strong>Primary</strong>
-      </div>
-      {links.map((link) => (
-        <button className="context-link" key={link.label} onClick={() => setActiveSection("links")} type="button">
-          {link.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function InfoStat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="info-stat">
-      <strong>{value}</strong>
-      <span>{label}</span>
-    </div>
-  );
 }
 
 function monthsSince(start: Date, end: Date) {
@@ -655,14 +679,6 @@ function formatMonths(months: number) {
   const years = Math.floor(months / 12);
   const remaining = months % 12;
   return `${years}Y ${remaining}M`;
-}
-
-function formatMonthYear(date: Date) {
-  const shortYear = String(date.getFullYear()).slice(-2);
-  return date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "short",
-  }).replace(",", "") + ` '${shortYear}`;
 }
 
 function FlowLines() {
