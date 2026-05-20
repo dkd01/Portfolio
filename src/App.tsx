@@ -614,13 +614,10 @@ function EducationStage() {
               className={item.start === item.end ? "education-date-rail single" : "education-date-rail"}
               aria-label={item.start === item.end ? item.start : `${item.start} to ${item.end}`}
             >
-              <span>{item.start}</span>
-              {item.start !== item.end ? (
-                <>
-                  <i aria-hidden="true" />
-                  <span>{item.end}</span>
-                </>
-              ) : null}
+              <div className="education-years">
+                <small>{item.start}</small>
+                {item.start !== item.end ? <small>{item.end}</small>  : null}
+              </div>
               <small>{item.location}</small>
             </div>
           </article>
