@@ -44,17 +44,12 @@ const sections: Array<{ id: SectionId; label: string }> = [
 
 const skillGroups: SkillGroup[] = [
   {
-    title: "Backend",
-    skills: [
-      "Java",
-      "Go",
-      "Kotlin",
-      "Python",
-      "Spring Boot",
-      "Dropwizard",
-      "Google Guice",
-      "Uber Fx",
-    ],
+    title: "Language",
+    skills: ["Java", "Go", "Kotlin", "Python", "C++", "JavaScript", "Scala"],
+  },
+  {
+    title: "Backend & Front-end",
+    skills: ["Spring Boot", "Dropwizard", "Google Guice", "Uber Fx", "Redis", "React", "HTML"],
   },
   {
     title: "Data & Infra",
@@ -65,13 +60,21 @@ const skillGroups: SkillGroup[] = [
       "Kafka",
       "MongoDB",
       "AWS",
+      "AWS Lambda",
+      "AWS SQS",
+      "AWS DynamoDB",
       "Airflow",
       "Grafana",
+      "Prometheus",
     ],
   },
   {
     title: "Core",
-    skills: ["SQL", "Bash", "Jenkins", "Scala", "DSA", "OOP", "Testing", "Networks"],
+    skills: ["SQL", "Bash", "Jenkins", "DSA", "OOP", "Testing", "Networks"],
+  },
+  {
+    title: "Coursework",
+    skills: ["Data Structures", "Algorithms", "DBMS", "Operating Systems", "Computer Networks"],
   },
 ];
 
@@ -87,7 +90,7 @@ const experiences: Experience[] = [
     iconUrl: "https://www.google.com/s2/favicons?domain=olyv.co.in&sz=64",
     location: "Bangalore, Karnataka",
     accent: "#526d87",
-    tech: ["Java", "Spring Boot", "PostgreSQL", "MySQL", "Kafka", "AWS", "SQL"],
+    tech: ["Java", "Spring Boot", "PostgreSQL", "MySQL", "Kafka", "AWS", "AWS SQS", "Redis", "SQL"],
     metrics: ["Collections", "May 2026"],
     bullets: [
       <>Started in the Collections team, continuing backend product engineering work.</>,
@@ -115,7 +118,12 @@ const experiences: Experience[] = [
       "PostgreSQL",
       "Kafka",
       "AWS",
+      "AWS Lambda",
+      "AWS SQS",
+      "AWS DynamoDB",
       "Grafana",
+      "Prometheus",
+      "Redis",
       "Bash",
     ],
     metrics: ["10-20K onboardings/day", "PPI ownership", "Compliance"],
@@ -152,6 +160,8 @@ const experiences: Experience[] = [
       "Scala",
       "SQL",
       "AWS",
+      "Airflow",
+      "Prometheus",
     ],
     metrics: ["20% EMI recovery", "22% pipeline impact", "96% latency cut"],
     bullets: [
@@ -173,7 +183,7 @@ const experiences: Experience[] = [
     iconUrl: "https://www.google.com/s2/favicons?domain=arista.com&sz=64",
     location: "Bangalore, Karnataka",
     accent: "#6f617a",
-    tech: ["Python", "C++", "Bash", "Networks", "OOP", "Testing"],
+    tech: ["Python", "C++", "Bash", "Networks", "Computer Networks", "OOP", "Testing"],
     metrics: ["EOS trunk", "CLI design", "Production tests"],
     bullets: [
       <>Delivered Named BitsMap feature on EOS-trunk end to end.</>,
@@ -191,7 +201,20 @@ const experiences: Experience[] = [
     iconUrl: "https://www.google.com/s2/favicons?domain=acciojob.com&sz=64",
     location: "Remote",
     accent: "#a0783e",
-    tech: ["Java", "DSA", "OOP", "System Design", "Spring Boot"],
+    tech: [
+      "Java",
+      "JavaScript",
+      "React",
+      "HTML",
+      "DSA",
+      "Data Structures",
+      "Algorithms",
+      "OOP",
+      "System Design",
+      "Spring Boot",
+      "DBMS",
+      "Operating Systems",
+    ],
     metrics: ["300+ students", "DSA curriculum", "WebDev curriculum"],
     bullets: [
       <>Mentored <strong>300+ students</strong> across DSA and development fundamentals.</>,
@@ -445,12 +468,6 @@ function CompanyBreadcrumb({
             </span>
             <span className="crumb-label">
               <span>{experience.company}</span>
-              {experience.id === activeJob ? (
-                <strong>
-                  {formatMonthYear(experience.start)} &lt;---&gt;{" "}
-                  {experience.end ? formatMonthYear(experience.end) : "Present"}
-                </strong>
-              ) : null}
             </span>
           </button>
           {index < chronologicalExperiences.length - 1 ? (
@@ -557,7 +574,6 @@ function ContextPanel({
       <div className="context-panel">
         <div className="context-head">
           <span className="eyebrow">Skills</span>
-          <strong>{activeExperience.company}</strong>
         </div>
         {skillGroups.map((group) => (
           <div className="side-skill-group" key={group.title}>
@@ -642,10 +658,11 @@ function formatMonths(months: number) {
 }
 
 function formatMonthYear(date: Date) {
+  const shortYear = String(date.getFullYear()).slice(-2);
   return date.toLocaleDateString("en-US", {
+    day: "numeric",
     month: "short",
-    year: "numeric",
-  });
+  }).replace(",", "") + ` '${shortYear}`;
 }
 
 function FlowLines() {
