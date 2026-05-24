@@ -8,6 +8,7 @@ import {
 
 type SectionId = "experience" | "education";
 type ExperienceId = "olyv" | "cred" | "navi" | "arista" | "acciojob";
+type SceneId = ExperienceId | "education";
 
 type Experience = {
   id: ExperienceId;
@@ -363,6 +364,7 @@ function App() {
 
   const totalMonths = useMemo(() => monthsSince(new Date(2023, 6, 1), new Date()), []);
   const activeExperience = experiences.find((item) => item.id === activeJob) ?? experiences[0];
+  const activeScene: SceneId = activeSection === "experience" ? activeExperience.id : "education";
 
   useEffect(() => {
     let frame = 0;
@@ -382,7 +384,8 @@ function App() {
   }, [totalMonths]);
 
   return (
-    <div className="site-shell">
+    <div className="site-shell" data-scene={activeScene}>
+      <SceneBackdrop scene={activeScene} />
       <FlowLines />
       <main className="page-grid">
         <article className="content-pane" aria-label="Portfolio content">
@@ -391,7 +394,7 @@ function App() {
             <CompanyBreadcrumb activeJob={activeJob} setActiveJob={setActiveJob} />
           ) : null}
 
-          <section className="stage corner-frame" aria-live="polite">
+          <section className="stage corner-frame" key={activeScene} aria-live="polite">
             {activeSection === "experience" && (
               <ExperienceStage activeExperience={activeExperience} />
             )}
@@ -686,6 +689,71 @@ function FlowLines() {
       <path d="M-107 843C91 682 314 798 510 716C702 636 885 696 1057 787C1256 893 1357 779 1530 699" />
       <path d="M130 1185C277 980 431 1088 606 993C799 888 943 974 1108 1055C1265 1131 1387 1059 1498 984" />
     </svg>
+  );
+}
+
+function SceneBackdrop({ scene }: { scene: SceneId }) {
+  return (
+    <div className="scene-backdrop" aria-hidden="true" key={scene}>
+      <div className="scene-wash" />
+      <svg className="scene-geometry scene-geometry-primary" viewBox="0 0 1200 760" preserveAspectRatio="none">
+        {scene === "cred" ? (
+          <>
+            <path d="M78 166H260V282H78z" />
+            <path d="M122 212h96M122 238h62M828 102h228M828 136h162" />
+            <path d="M420 608c70-134 188-170 354-118 136 42 236 6 350-92" />
+            <circle cx="964" cy="512" r="58" />
+          </>
+        ) : null}
+        {scene === "navi" ? (
+          <>
+            <path d="M76 492c148-196 310-232 488-106 158 112 340 88 560-72" />
+            <path d="M258 152v122h220v116h220v128h238" />
+            <circle cx="258" cy="152" r="22" />
+            <circle cx="478" cy="274" r="22" />
+            <circle cx="698" cy="390" r="22" />
+            <circle cx="936" cy="518" r="22" />
+          </>
+        ) : null}
+        {scene === "arista" ? (
+          <>
+            <path d="M126 516l174-176 182 74 184-202 214 88 196-150" />
+            <path d="M214 618h780M280 566h620M348 514h486" />
+            <circle cx="300" cy="340" r="28" />
+            <circle cx="482" cy="414" r="28" />
+            <circle cx="666" cy="212" r="28" />
+            <circle cx="880" cy="300" r="28" />
+          </>
+        ) : null}
+        {scene === "acciojob" ? (
+          <>
+            <path d="M152 170v420M152 268h228M152 384h316M152 500h256" />
+            <path d="M584 144c110 86 124 202 42 348M738 178c110 86 124 202 42 348" />
+            <circle cx="380" cy="268" r="24" />
+            <circle cx="468" cy="384" r="24" />
+            <circle cx="408" cy="500" r="24" />
+          </>
+        ) : null}
+        {scene === "olyv" ? (
+          <>
+            <path d="M128 534c210-190 396-214 558-72 128 112 250 108 390-12" />
+            <path d="M238 160h210v116H238zM598 214h210v116H598zM790 458h210v116H790z" />
+            <path d="M448 218c90-28 122 24 150 54M808 286c106 48 72 126-18 172" />
+          </>
+        ) : null}
+        {scene === "education" ? (
+          <>
+            <path d="M164 120v520M164 192h320M164 322h442M164 452h316M164 582h388" />
+            <path d="M750 126h230M750 186h174M750 246h230M750 306h142" />
+            <path d="M612 620c86-162 194-226 326-192 84 22 142-4 194-72" />
+          </>
+        ) : null}
+      </svg>
+      <svg className="scene-geometry scene-geometry-secondary" viewBox="0 0 1200 760" preserveAspectRatio="none">
+        <path d="M-40 206C196 82 376 326 584 190c186-122 304-72 466 14 92 50 170 46 230 8" />
+        <path d="M-88 610c232-134 430-92 594 22 176 122 368 110 734-52" />
+      </svg>
+    </div>
   );
 }
 

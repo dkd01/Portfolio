@@ -22,6 +22,10 @@
   --sage: #657a61;
   --clay: #946252;
   --shadow: 0 18px 54px rgba(62, 49, 31, 0.12);
+  --scene-accent: #526d87;
+  --scene-soft: rgba(82, 109, 135, 0.14);
+  --scene-warm: rgba(148, 98, 82, 0.1);
+  --scene-ink: rgba(48, 61, 70, 0.34);
 }
 
 * {
@@ -70,15 +74,58 @@ strong {
     ),
     radial-gradient(
       circle at 88% 18%,
-      rgba(101, 122, 97, 0.14),
+      var(--scene-soft),
       transparent 22rem
     ),
     radial-gradient(
       circle at 44% 94%,
-      rgba(148, 98, 82, 0.12),
+      var(--scene-warm),
       transparent 24rem
     ),
     linear-gradient(135deg, #f7efdf 0%, #eadcc2 50%, #f7efdf 100%);
+  transition: background 520ms ease;
+}
+
+.site-shell[data-scene="cred"] {
+  --scene-accent: #657a61;
+  --scene-soft: rgba(101, 122, 97, 0.18);
+  --scene-warm: rgba(42, 51, 43, 0.1);
+  --scene-ink: rgba(42, 61, 45, 0.36);
+}
+
+.site-shell[data-scene="navi"] {
+  --scene-accent: #946252;
+  --scene-soft: rgba(148, 98, 82, 0.16);
+  --scene-warm: rgba(92, 50, 74, 0.08);
+  --scene-ink: rgba(102, 57, 47, 0.35);
+}
+
+.site-shell[data-scene="arista"] {
+  --scene-accent: #526d87;
+  --scene-soft: rgba(82, 109, 135, 0.18);
+  --scene-warm: rgba(70, 78, 112, 0.08);
+  --scene-ink: rgba(40, 68, 92, 0.35);
+}
+
+.site-shell[data-scene="acciojob"] {
+  --scene-accent: #a0783e;
+  --scene-soft: rgba(160, 120, 62, 0.16);
+  --scene-warm: rgba(92, 69, 36, 0.1);
+  --scene-ink: rgba(112, 81, 38, 0.35);
+}
+
+.site-shell[data-scene="olyv"] {
+  --scene-accent: #6f8d54;
+  --scene-soft: rgba(111, 141, 84, 0.18);
+  --scene-warm: rgba(74, 106, 114, 0.08);
+  --scene-ink: rgba(69, 100, 70, 0.35);
+}
+
+.site-shell[data-scene="education"] {
+  --scene-accent: #526d87;
+  --scene-soft: rgba(82, 109, 135, 0.14);
+  --scene-warm: rgba(160, 120, 62, 0.1);
+  --scene-ink: rgba(54, 63, 70, 0.32);
 }
 
 .site-shell::before {
@@ -112,6 +159,61 @@ strong {
   pointer-events: none;
   opacity: 0.24;
   animation: slow-drift 22s ease-in-out infinite alternate;
+}
+
+.scene-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: scene-arrive 680ms ease both;
+}
+
+.scene-wash {
+  position: absolute;
+  inset: -12%;
+  opacity: 0.74;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.54), transparent 22rem),
+    radial-gradient(circle at 72% 28%, var(--scene-soft), transparent 30rem),
+    radial-gradient(circle at 40% 78%, var(--scene-warm), transparent 28rem);
+  filter: blur(1px);
+  transform: translate3d(0, 0, 0);
+  animation: scene-wash-drift 16s ease-in-out infinite alternate;
+}
+
+.scene-geometry {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
+}
+
+.scene-geometry-primary {
+  opacity: 0.34;
+  transform-origin: center;
+  animation: geometry-draw 860ms ease both;
+}
+
+.scene-geometry-secondary {
+  opacity: 0.16;
+  animation: slow-drift 24s ease-in-out infinite alternate-reverse;
+}
+
+.scene-geometry path,
+.scene-geometry circle {
+  fill: none;
+  stroke: var(--scene-ink);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 14;
+}
+
+.scene-geometry circle {
+  stroke-dasharray: 4 8;
 }
 
 .flow-lines path {
@@ -363,6 +465,7 @@ strong {
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  animation: stage-enter 460ms cubic-bezier(0.18, 0.78, 0.24, 1) both;
 }
 
 .stage-topline {
@@ -399,6 +502,7 @@ strong {
   font-size: clamp(1rem, 1.6vw, 1.5rem);
   font-weight: 850;
   opacity: 0.82;
+  animation: logo-float-in 560ms cubic-bezier(0.18, 0.84, 0.24, 1) both;
 }
 
 .body-company-logo img {
@@ -553,7 +657,7 @@ strong {
   grid-template-columns: minmax(0, 1fr);
   gap: 16px;
   margin-top: 18px;
-  animation: pane-in 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: pane-in 440ms cubic-bezier(0.18, 0.82, 0.24, 1);
 }
 
 .job-copy {
@@ -586,6 +690,19 @@ strong {
   position: relative;
   min-width: 0;
   padding-left: 17px;
+  animation: tree-rise 460ms cubic-bezier(0.18, 0.82, 0.24, 1) both;
+}
+
+.job-tree-group:nth-child(2) {
+  animation-delay: 55ms;
+}
+
+.job-tree-group:nth-child(3) {
+  animation-delay: 110ms;
+}
+
+.job-tree-group:nth-child(4) {
+  animation-delay: 165ms;
 }
 
 .job-tree-group::before {
@@ -813,7 +930,6 @@ strong {
   align-items: center;
   color: #17344e;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.65rem, 3.5vw, 4.2rem);
   font-weight: 950;
   line-height: 1;
   text-align: center;
@@ -826,10 +942,17 @@ strong {
   justify-content: center;
   width: 100%;
   white-space: nowrap;
-  font-size: 100rem;
 }
 
-.education-date-rail small {
+.education-years small {
+  color: #3f392f;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.55rem, 2.05vw, 2.6rem);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.education-date-rail > small {
   color: #3f392f;
   font-family:
     Inter,
@@ -839,7 +962,7 @@ strong {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  font-size: clamp(0.8rem, 1.08vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.08vw, 1.2rem);
   font-weight: 900;
   line-height: 1.1;
 }
@@ -1026,11 +1149,79 @@ strong {
 @keyframes pane-in {
   from {
     opacity: 0;
-    transform: translateX(22px) scale(0.99);
+    filter: blur(5px);
+    transform: translateX(26px) scale(0.992);
   }
   to {
     opacity: 1;
+    filter: blur(0);
     transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes stage-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tree-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logo-float-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  to {
+    opacity: 0.82;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scene-arrive {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes geometry-draw {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 40;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 0.34;
+    stroke-dashoffset: 0;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scene-wash-drift {
+  from {
+    transform: translate3d(-1.2vw, -0.8vh, 0) scale(1);
+  }
+  to {
+    transform: translate3d(1.2vw, 0.8vh, 0) scale(1.02);
   }
 }
 
