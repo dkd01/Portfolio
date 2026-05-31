@@ -72,16 +72,8 @@ strong {
       rgba(255, 255, 255, 0.7),
       transparent 25rem
     ),
-    radial-gradient(
-      circle at 88% 18%,
-      var(--scene-soft),
-      transparent 22rem
-    ),
-    radial-gradient(
-      circle at 44% 94%,
-      var(--scene-warm),
-      transparent 24rem
-    ),
+    radial-gradient(circle at 88% 18%, var(--scene-soft), transparent 22rem),
+    radial-gradient(circle at 44% 94%, var(--scene-warm), transparent 24rem),
     linear-gradient(135deg, #f7efdf 0%, #eadcc2 50%, #f7efdf 100%);
   transition: background 520ms ease;
 }
@@ -175,7 +167,11 @@ strong {
   inset: -12%;
   opacity: 0.74;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.54), transparent 22rem),
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(255, 255, 255, 0.54),
+      transparent 22rem
+    ),
     radial-gradient(circle at 72% 28%, var(--scene-soft), transparent 30rem),
     radial-gradient(circle at 40% 78%, var(--scene-warm), transparent 28rem);
   filter: blur(1px);
@@ -937,7 +933,7 @@ strong {
 
 .education-years {
   display: flex;
-  gap: clamp(20px, 2.6vw, 48px);
+  gap: clamp(10px, 1.6vw, 24px);
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -947,7 +943,7 @@ strong {
 .education-years small {
   color: #3f392f;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.55rem, 2.05vw, 2.6rem);
+  font-size: clamp(1.2rem, 1.2vw, 1.6rem);
   font-weight: 950;
   line-height: 1;
 }
